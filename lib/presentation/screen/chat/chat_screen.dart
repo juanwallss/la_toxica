@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:la_toxica/presentation/widgets/chat/message_bubble.dart';
+import 'package:la_toxica/presentation/widgets/chat/message_field_box.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -38,7 +39,7 @@ class _chatView extends StatelessWidget {
                       isMyMessage: index.isEven,
                     );
                   })),
-          const Text('Input')
+          const MessageFieldBox(),
         ],
       ),
     );
