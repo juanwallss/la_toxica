@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
-class MessageFieldBox extends StatelessWidget {
+class MessageFieldBox extends StatefulWidget {
   final void Function(String) onSend;
   const MessageFieldBox({super.key, required this.onSend});
 
+  @override
+  State<MessageFieldBox> createState() => _MessageFieldBoxState();
+}
+
+class _MessageFieldBoxState extends State<MessageFieldBox> {
   @override
   Widget build(BuildContext context) {
     final TextEditingController textController = TextEditingController();
@@ -17,10 +22,9 @@ class MessageFieldBox extends StatelessWidget {
         onPressed: () {
           final message = textController.text;
           if (message.isNotEmpty) {
-            print(message);
             textController.clear();
-            onSend(message);
-            focusMode.unfocus();
+            widget.onSend(message);
+            focusMode.requestFocus();
           }
         },
       ),
@@ -28,9 +32,12 @@ class MessageFieldBox extends StatelessWidget {
         focusMode.unfocus();
       },
       onFieldSubmitted: (value) {
-        onSend(value);
-        textController.clear();
-        focusMode.unfocus();
+        textController.text += '\n';
+        if (value.isNotEmpty) {
+          widget.onSend(value);
+          textController.clear();
+          focusMode.requestFocus();
+        }
       },
     );
   }

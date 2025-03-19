@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 
-class AppTheme {
-  final int _indexColor;
-  AppTheme(this._indexColor): assert(_indexColor >= 0 && _indexColor < colors.length);
+const List<Color> colors = [
+  Colors.black,
+  Colors.blue,
+  Color.fromARGB(255, 17, 2, 128),
+  Colors.orange,
+  Colors.pink,
+  Colors.green,
+  Colors.purple
+];
 
-  static List<Color> colors = [
-    const Color.fromARGB(255, 0, 255, 8),
-    const Color(0xFF0000FF),
-    const Color(0xFFFF0000),
-  ];
-  ThemeData getTheme () => ThemeData(
-    colorSchemeSeed: colors[_indexColor],
-    brightness: Brightness.dark
-  );
+class AppTheme {
+  final Brightness brightness;
+  final int selectedColors;
+
+  const AppTheme(
+      {required this.selectedColors, this.brightness = Brightness.light})
+      : assert(selectedColors >= 0 && selectedColors < colors.length,
+            'no te pases de lanza compa solo es el rango de 0 a ${colors.length - 1}');
+
+  ThemeData theme() => ThemeData(
+      colorSchemeSeed: colors[selectedColors], brightness: brightness);
 }
